@@ -226,8 +226,8 @@ def Perspective_warping(img1, img2, img3):
     cv2.imwrite(output_name, output_image)
 
     #check error
-    # master = cv2.imread("example_output1.png", 0)
-    # print(RMSD(out2, master))
+    master = cv2.imread("example_output1.png", 0)
+    print(RMSD(1,out2, master))
 
     return True
 
@@ -249,14 +249,15 @@ def Bonus_perspective_warping(img1, img2, img3):
 # ===================================================
 def Cylindrical_warping(img1, img2, img3):
 
-    img1=cv2.imread("input1.png",0)
-    img2=cv2.imread("input2.png",0)
-    img3=cv2.imread("input3.png",0)
+    #img1=cv2.imread("input1.png",0)
+    #img2=cv2.imread("input2.png",0)
+    #img3=cv2.imread("input3.png",0)
 
     # cv2.imshow("image1",img1)
     # cv2.imshow("image2",img2)
     # cv2.imshow("image3",img3)
     # cv2.waitKey(0)
+
 
     h, w = img1.shape
     f = 450
@@ -300,11 +301,14 @@ def Cylindrical_warping(img1, img2, img3):
     #transform the left and warp affine
     (M, pts1, pts2, mask) = getTransform(cyl3, cyl1)
     out2 = cv2.warpAffine(cyl3, M[:2,:], (cyl1.shape[1],cyl1.shape[0]))
+    ##test this add top and bottom borders to work
+    # out2 = cv2.warpAffine(cyl3, M[:2,:], (cyl3.shape[1],cyl3.shape[0]+100))
 
     del rows,cols
     #find the cells with empty pixels from the mask on the left half of the image mask
     rows, cols = np.where(cyl1_mask[:,:np.uint(cyl1_mask.shape[1]/2)] == 0)
-    # rowsAct,colsAct = np.where(( cyl1 != 0) & (cyl1_mask == 0))
+    ##test this
+    # rows, cols = np.where(cyl1_mask[:cyl3.shape[0],:cyl3.shape[1]] == 0)
     cyl1[rows, cols] = out2[rows, cols]
 
     # plt.figure()
@@ -318,7 +322,7 @@ def Cylindrical_warping(img1, img2, img3):
     cv2.imwrite(output_name, output_image)
 
     master = cv2.imread("example_output2.png", 0)
-    print(RMSD(out2, master))
+    print(RMSD(2,cyl1, master))
     return True
 
 
@@ -341,7 +345,7 @@ criteria is posted on Piazza
 '''
 
 
-def RMSD(target, master):
+def RMSD(questionID, target, master):
     # Get width, height, and number of channels of the master image
     master_height, master_width = master.shape[:2]
     master_channel = len(master.shape)
@@ -351,22 +355,36 @@ def RMSD(target, master):
     target_channel = len(target.shape)
 
     # Validate the height, width and channels of the input image
-    if (master_height != target_height or master_width != target_width or
-            master_channel != target_channel):
+    if (master_height != target_height or master_width != target_width or master_channel != target_channel):
+        print("failes in size comparision")
         return -1
     else:
-        total_diff = 0.0
-        master_channels = cv2.split(master)
-        target_channels = cv2.split(target)
+        nonZero_target = cv2.countNonZero(target)
+        nonZero_master = cv2.countNonZero(master)
+
+        if (questionID == 1):
+           if (nonZero_target < 1200000):
+               print("failed in non zero target in one")
+               return -1
+        elif(questionID == 2):
+            if (nonZero_target < 700000):
+                print("failed in non zero target in two")
+                return -1
+        else:
+            print("incorrect q id")
+            return -1
+
+        total_diff = 0.0;
+        master_channels = cv2.split(master);
+        target_channels = cv2.split(target);
 
         for i in range(0, len(master_channels), 1):
             dst = cv2.absdiff(master_channels[i], target_channels[i])
             dst = cv2.pow(dst, 2)
             mean = cv2.mean(dst)
-            total_diff = total_diff + mean[0]**(1 / 2.0)
+            total_diff = total_diff + mean[0]**(1/2.0)
 
-        return total_diff
-
+        return total_diff;
 
 if __name__ == '__main__':
     question_number = -1
