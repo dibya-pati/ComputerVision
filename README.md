@@ -3,7 +3,7 @@
 This repo comprises of Python Open CV implementation of :
 
 * HW1:
-  1. Histogram equalization/Contrast Enhancement:This is based on Prince's approach of linearizing the channels by multiplying
+1. Histogram equalization/Contrast Enhancement:This is based on Prince's approach of linearizing the channels by multiplying
 it with color depth i.e. 255 for 8bit, and dividing it with the number of pixels, more precisely eq 13.3 and 13.4 from 13.1.2 Histogram equalization of the book Computer vision
 
 <img src="https://latex.codecogs.com/gif.latex?c_{k}=\frac{\sum_{l=1}^{k}h_{l}}{IJ}" title="c_{k}=\frac{\sum_{l=1}^{k}h_{l}}{IJ}" />
