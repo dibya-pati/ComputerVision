@@ -32,3 +32,12 @@ This execrcise implements object tracking and optical flow in OpenCV.
   3. Haar features with Kalman corrections
   4. particle filters(from Lucas and Kanade)
   5. Optical Flow(using Shi and Tomasi )
+
+* HW4:
+This execrcise primarily concentrates on semi-supervise image segmentation on astronaut image.
+It first uses SLIC(Simple Linear Iterative Clustering) to form superpixels, the segmentation(n) and compactness parameter of SLIC can be adjusted to get the desired segment size and shape.
+
+After that the system reads the image markings from the file where blue marks the foreround and red the background, these pixel markings are used to created the source and sink nodes for the graph-cut to separate the image into two classes (the foreground and background)
+In this exercise we have used Energy based image segmentation by comparing the image histograms with the intial set of background and foreground histograms(from markings) followed by normalized graph cut to the pixels to bg and fg
+
+In the bonus section the markings are read from a gui, where user can interactively draw the bg and fg markings, use 'c' or 'C' to togle between color of marking and once done press 'ESC' to compute the segmented mask
