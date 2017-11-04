@@ -1,4 +1,5 @@
 # Computer Vision
+Open CV implementations of segmentation,Pyramid Blending,Object Detection and many more
 
 This repo comprises of Python Open CV implementation of :
  1. HW1:
