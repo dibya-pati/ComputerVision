@@ -29,9 +29,9 @@ This execrcise primarily concentrates on semi-supervised image segmentation on a
 In this section we experimented with 3-d reconstruction using structured light. The test comprises of projecting a series of harizontal and vertical strips of light on the object & then reading the pattern using a standard camera. Here, we consider a series of images for 3-d recontruction
     1. Read the images and populate the scan value for each pixel(read a set a horizonal then vertical strips that form LSB and MSB of the binary code)
     2. Use the lookup table to find the (x,y) position from the projector
-    3. Compute the undistorted values of (x,y) using the given K-matrix and distortion matrix of the projector and camera respectively
+    3. Compute the undistorted values of (x,y) using the given K-matrix and distortion matrix of the projector and camera respectively.     For Camera Calliberation please follow the steps from [Prof Roy's Blog ](http://www.morethantechnical.com/2017/11/17/projector-camera-calibration-the-easy-way/)
     4. We have two sets (x,y) for a given pixel One from the projector and one from the camera's peprspective	
     5. Use OpenCV triangulation to determine 3-d coordinate(homogenous space) for the a given (x,y)
     6. Compute the actual 3-d point from the homogenous matrix using OpenCV convert from homogenous api
     7. Result 3-d location for a 2-d point
-    For Camera Calliberation please follow the steps from Prof Roy morethantechnical.com/2017/11/17/projector-camera-calibration-the-easy-way/
+
