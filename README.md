@@ -34,3 +34,4 @@ In this section we experimented with 3-d reconstruction using structured light. 
     5. Use OpenCV triangulation to determine 3-d coordinate(homogenous space) for the a given (x,y)
     6. Compute the actual 3-d point from the homogenous matrix using OpenCV convert from homogenous api
     7. Result 3-d location for a 2-d point
+    For Camera Calliberation please follow the steps from Prof Roy morethantechnical.com/2017/11/17/projector-camera-calibration-the-easy-way/
